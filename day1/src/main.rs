@@ -10,7 +10,7 @@ impl Pair {
 }
 
 fn main() {
-    let input = read_to_string("sample_input.txt")
+    let input = read_to_string("puzzle_input.txt")
         .unwrap()
         .lines()
         .map(String::from)
@@ -44,5 +44,17 @@ fn main() {
         sumdist += pair.distance();
     }
 
+    let mut similarity_score: i32 = 0;
+
+    for val in list1.iter() {
+        let count = list2
+            .iter()
+            .filter_map(|&x| if x == *val { Some(1) } else { None })
+            .sum::<i32>();
+        //println!("Value {val} occurs {count} times in list2");
+        similarity_score += *val * count;
+    }
+
     println!("Total distance is {sumdist}");
+    println!("Similarity score is {similarity_score}");
 }
